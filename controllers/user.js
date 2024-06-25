@@ -154,7 +154,7 @@ export const profile = async (req, res) => {
 
     // Buscar al usuario en la BD, excluimos la contraseña, rol, versión.
     const userProfile = await User.findById(userId).select(
-      "-password -role -__v"
+      "-password -role -__v -email"
     );
 
     // Verificar si el usuario existe
@@ -194,7 +194,7 @@ export const listUsers = async (req, res) => {
     const options = {
       page: page,
       limit: itemsPerPage,
-      select: "-password -role -__v",
+      select: "-password -role -__v -email",
     };
 
     const users = await User.paginate({}, options);
@@ -351,7 +351,7 @@ export const uploadFiles = async (req, res) => {
 
     // Comprobar tamaño del archivo (pj: máximo 1MB)
     const fileSize = req.file.size;
-    const maxFileSize = 1 * 1024 * 1024; // 5 MB
+    const maxFileSize = 1 * 1024 * 1024; // 1 MB
 
     if (fileSize > maxFileSize) {
       const filePath = req.file.path;
@@ -359,7 +359,7 @@ export const uploadFiles = async (req, res) => {
 
       return res.status(400).send({
         status: "error",
-        message: "El tamaño del archivo excede el límite (máx 5B)",
+        message: "El tamaño del archivo excede el límite (máx 1 MB)",
       });
     }
 
