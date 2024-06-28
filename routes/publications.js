@@ -13,7 +13,7 @@ import {
 } from "../controllers/publications.js";
 import { ensureAuth } from "../middlewares/auth.js";
 import multer from "multer";
-import Publication from "../models/publication.js";
+import Publication from "../models/publications.js";
 import { checkEntityExists } from "../middlewares/checkEntityExists.js";
 
 // Configuración de subida de archivos

@@ -1,4 +1,4 @@
-import Publication from "../models/publication.js";
+import Publication from "../models/publications.js";
 import fs from "fs";
 import path from "path";
 import { followUserIds } from "../services/followServices.js";

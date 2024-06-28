@@ -1,6 +1,6 @@
 import User from "../models/user.js";
 import Follow from "../models/follow.js";
-import Publication from "../models/publication.js";
+import Publication from "../models/publications.js";
 import bcrypt from "bcrypt";
 import { createToken } from "../services/jwt.js";
 import fs from "fs";
