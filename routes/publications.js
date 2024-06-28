@@ -13,6 +13,8 @@ import {
 } from "../controllers/publications.js";
 import { ensureAuth } from "../middlewares/auth.js";
 import multer from "multer";
+import Publication from "../models/publication.js";
+import { checkEntityExists } from "../middlewares/checkEntityExists.js";
 
 // Configuración de subida de archivos
 const storage = multer.diskStorage({
@@ -35,7 +37,7 @@ router.delete("/delete-publication/:id", ensureAuth, deletePublication);
 router.get("/publications-user/:id/:page?", ensureAuth, publicationsUser);
 router.post(
   "/upload-media/:id",
-  [ensureAuth, uploads.single("file0")],
+  [ensureAuth, checkEntityExists(Publication, "id"), uploads.single("file0")],
   uploadMedia
 );
 router.get("/media/:file", showMedia);
