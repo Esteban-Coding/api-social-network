@@ -11,6 +11,7 @@ import {
   updateUser,
   uploadFiles,
   avatar,
+  counters,
 } from "../controllers/user.js";
 import { ensureAuth } from "../middlewares/auth.js";
 import User from "../models/user.js";
@@ -43,6 +44,7 @@ router.post(
   uploadFiles
 );
 router.get("/avatar/:file", avatar);
+router.get("/counters/:id?", ensureAuth, counters);
 
 // Exportar el Router
 export default router;
