@@ -13,6 +13,8 @@ import {
   avatar,
 } from "../controllers/user.js";
 import { ensureAuth } from "../middlewares/auth.js";
+import User from "../models/user.js";
+import { checkEntityExists } from "../middlewares/checkEntityExists.js";
 import multer from "multer";
 
 // Configuración de subida de archivos
@@ -35,7 +37,11 @@ router.post("/login", login);
 router.get("/profile/:id", ensureAuth, profile);
 router.get("/list/:page?", ensureAuth, listUsers);
 router.put("/update", ensureAuth, updateUser);
-router.post("/upload", [ensureAuth, uploads.single("file0")], uploadFiles);
+router.post(
+  "/upload",
+  [ensureAuth, checkEntityExists(User, "user_id"), uploads.single("file0")],
+  uploadFiles
+);
 router.get("/avatar/:file", avatar);
 
 // Exportar el Router
