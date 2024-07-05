@@ -6,6 +6,9 @@ import UserRoutes from "./routes/user.js";
 import PublicationRoutes from "./routes/publications.js";
 import FollowRoutes from "./routes/follow.js";
 import bodyParser from "body-parser";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
 // Mensaje de bienvenida
 console.log("API NODE arriba");
@@ -29,13 +32,20 @@ app.use("/api/user", UserRoutes);
 app.use("/api/publication", PublicationRoutes);
 app.use("/api/follow", FollowRoutes);
 
-app.get("/test-route", (req, res) => {
-  return res.status(200).json({
-    id: 1,
-    name: "Esteban Camacho",
-    username: "esteban-coding",
-  });
-});
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Configuración para servir archivos estáticos (imágenes de avatar)
+app.use(
+  "/uploads/avatars",
+  express.static(path.join(__dirname, "uploads", "avatars"))
+);
+
+// Configuración para servir archivos estáticos (imágenes de publicaciones)
+app.use(
+  "/uploads/publications",
+  express.static(path.join(__dirname, "uploads", "publications"))
+);
 
 // Configurar el servidor para escuchar las peticiones HTTP
 app.listen(puerto, () => {
