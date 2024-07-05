@@ -21,7 +21,14 @@ const app = express();
 const puerto = process.env.PORT || 3900;
 
 // Configurar cors: permite que las peticiones se hagan correctamente
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // Permitir solicitudes desde cualquier origen
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Métodos permitidos
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
 
 // Conversión de datos (body a objetos JS)
 app.use(bodyParser.json());
@@ -51,3 +58,5 @@ app.use(
 app.listen(puerto, () => {
   console.log("Servidor de NODE corriendo en el puerto", puerto);
 });
+
+export default app;
